@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { RxHamburgerMenu } from "react-icons/rx";
-import { AiOutlineClose } from "react-icons/ai";
+// import { RxHamburgerMenu } from "react-icons/rx";
+// import { AiOutlineClose } from "react-icons/ai";
 
 const Navbar = () => {
 
@@ -15,13 +15,14 @@ const Navbar = () => {
         setIsOpen(false);
     };
 
+
     return (
         <div className="flex items-center fixed z-50">
             <nav className="flex flex-col md:flex-row items-center gap-1 py-2.5 px-1.5 border-white/10 rounded-full bg-white/10 backdrop-blur md:items-center md:justify-between">
                 <div onClick={toggleMenu} className="flex items-center text-white md:hidden px-2.5 py-0.5">
-                    <button>
+                    {/* <button>
                         {isOpen ? <AiOutlineClose /> : <RxHamburgerMenu className="" />}
-                    </button>
+                    </button> */}
                 </div>
 
                 <div className={`flex flex-col md:flex-row md:gap-1 ${isOpen ? 'block' : 'hidden md:block'}`}>
