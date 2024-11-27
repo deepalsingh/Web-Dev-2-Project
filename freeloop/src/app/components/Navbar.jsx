@@ -44,19 +44,22 @@ const Navbar = () => {
                     </button> */}
                 </div>
 
-                <div className={`flex flex-col md:flex-row md:gap-1 ${isOpen ? 'block' : 'hidden md:block'}`}>
-                    {/* <a href="#home" className="nav-item" onClick={(e) => handleClick(e, '#home')}>Home</a> */}
-                    <a href="#donate" className="nav-item" onClick={(e) => handleClick(e, '#donate')}>Donate</a>
-                    <a href="#charities" className="nav-item" onClick={(e) => handleClick(e, '#charities')}>Charities</a>
-                    <a href="#about" className="nav-item" onClick={(e) => handleClick(e, '#about')}>About</a>
-
-                    {user ? (
-                        <a href="#login" className="nav-item bg-slate-800 bg-slate-800 text-emerald-400 active:bg-slate-300 active:text-emerald-800 hover:bg-zinc-50 hover:text-emerald-950" onClick={handleSignOut}>SignOut</a>
-                    ) : (
-                        <a href="#login" className="nav-item bg-slate-800 text-emerald-400 active:bg-slate-300 active:text-emerald-800 hover:bg-zinc-50 hover:text-emerald-950" onClick={handleSignIn}>Login / Sign-In</a>
-                    )}
-
-                </div>
+                {user ? (
+                    <div className={`flex flex-col md:flex-row md:gap-1 ${isOpen ? 'block' : 'hidden md:block'}`}>
+                        <a onClick={(e) => handleClick(e, '#donate')} href="#donate" className="nav-item">Donate</a>
+                        <a href="#charities" className="nav-item" onClick={(e) => handleClick(e, '#charities')}>Charities</a>
+                        <a href="#about" className="nav-item" onClick={(e) => handleClick(e, '#about')}>About</a>
+                        <a onClick={handleSignOut} href="#login" className="nav-item bg-slate-800 bg-slate-800 text-emerald-400 active:bg-slate-300 active:text-emerald-800 hover:bg-zinc-50 hover:text-emerald-950">SignOut</a>
+                    </div>
+                ) : (
+                    <div className={`flex flex-col md:flex-row md:gap-1 ${isOpen ? 'block' : 'hidden md:block'}`}>
+                        {/* <a href="#home" className="nav-item" onClick={(e) => handleClick(e, '#home')}>Home</a> */}
+                        <a onClick={handleSignIn} href="#donate" className="nav-item">Donate</a>
+                        <a href="#charities" className="nav-item" onClick={handleSignIn}>Charities</a>
+                        <a href="#about" className="nav-item" onClick={(e) => handleClick(e, '#about')}>About</a>
+                        <a onClick={handleSignIn} href="#login" className="nav-item bg-slate-800 text-emerald-400 active:bg-slate-300 active:text-emerald-800 hover:bg-zinc-50 hover:text-emerald-950">Login / Sign-In</a>
+                    </div>
+                )}
             </nav>
         </div>
     )
