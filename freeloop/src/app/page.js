@@ -2,6 +2,9 @@
 
 import { useUserAuth } from './_utils/auth-context'; 
 import { useEffect, useState } from "react";
+import Header from './components/Header';
+
+
 // import Link from "next/link";
 
 export default function Home() {
@@ -24,20 +27,10 @@ export default function Home() {
       }
   }
 
-  const [blogPostList, setBlogPostList] = useState([]);
-
-  // useEffect(() => {
-  //   if (user) {
-  //       dbGetAllPosts(user.uid, setBlogPostList);
-  //   }
-  // }, [user])
-
-
   return (
     <main className="m-5">
-            <header>
-                <h1 className="text-3xl text-center">Firebase Auth</h1>
-            </header>
+            <Header />
+
             {user ? (
                 <div>
                     <p>Welcome {user.displayName}!</p>
@@ -64,7 +57,7 @@ export default function Home() {
                     <button 
                         type="button"
                         onClick={handleSignOut}
-                        className="text-lg bg-blue-600 text-white rounded px-2 py-1 mt-4"
+                        className="text-lg bg-blue-900 text-white rounded px-2 py-1 mt-4"
                     >Sign Out</button>
                 </div>
             ) : (
@@ -72,7 +65,7 @@ export default function Home() {
                     <button 
                         type="button"
                         onClick={handleSignIn}
-                        className="text-lg bg-blue-600 text-white rounded px-2 py-1 mt-4"
+                        className="text-lg bg-blue-900 text-white rounded px-2 py-1 mt-4"
                     >Sign In</button>
                 </div>
             )}

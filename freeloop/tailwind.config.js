@@ -2,9 +2,10 @@
 module.exports = {
   
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,jsx,ts,tsx}", 
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -12,6 +13,10 @@ module.exports = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      spacing: {
+        '-1': '-0.05rem',
+        '-2': '-0.1rem'
+      }
     },
   },
   plugins: [],

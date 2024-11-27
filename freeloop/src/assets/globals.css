@@ -2,6 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+.font-face {
+  font-family: 'geistSans';
+  src: url('/fonts/geistSans.woff2') format('woff2'), url('/freeloop/src/assets/fonts/GeistVF.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+.font-face {
+  font-family: 'geistMono';
+  src: url('/fonts/geistMono.woff2') format('woff2'), url('/freeloop/src/assets/fonts/GeistMonoVF.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+.font-geistsans {
+  font-family: 'geistSans', sans-serif;
+}
+
+.font-geistmono {
+  font-family: 'geistMono', monospace;
+}
+
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -14,9 +37,19 @@
   }
 }
 
+html {
+  height: 100%;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
 
+
+@layer base {
+  .nav-item {
+    @apply px-5 py-2 rounded-full text-emerald-900 text-sm font-semibold hover:bg-slate-800 hover:text-emerald-400 transition duration-300 mx-4 my-2 md:my-0;
+  }
+}
