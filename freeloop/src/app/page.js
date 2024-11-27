@@ -11,21 +11,7 @@ export default function Home() {
 
   const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
 
-  async function handleSignIn() {                              
-    try {
-        await gitHubSignIn();
-    } catch (error) {
-        console.log(error);
-    }
-  }
 
-  async function handleSignOut() {
-      try {
-          await firebaseSignOut();
-      } catch (error) {
-          console.log(error);
-      }
-  }
 
   return (
     <main className="m-5">
@@ -54,19 +40,10 @@ export default function Home() {
                             }
                         </ul> */}
                     </section>
-                    <button 
-                        type="button"
-                        onClick={handleSignOut}
-                        className="text-lg bg-blue-900 text-white rounded px-2 py-1 mt-4"
-                    >Sign Out</button>
                 </div>
             ) : (
                 <div>
-                    <button 
-                        type="button"
-                        onClick={handleSignIn}
-                        className="text-lg bg-blue-900 text-white rounded px-2 py-1 mt-4"
-                    >Sign In</button>
+                    <p>Donations</p>
                 </div>
             )}
         </main>

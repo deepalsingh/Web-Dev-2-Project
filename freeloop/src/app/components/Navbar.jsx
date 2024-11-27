@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 // import { RxHamburgerMenu } from "react-icons/rx";
 // import { AiOutlineClose } from "react-icons/ai";
+import { useUserAuth } from '../_utils/auth-context';
 
 const Navbar = () => {
 
+    const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
     const [isOpen, setIsOpen] = useState(false);
+
 
     const toggleMenu = () => {
         setIsOpen(prev => !prev);
@@ -14,6 +17,22 @@ const Navbar = () => {
         e.preventDefault();
         setIsOpen(false);
     };
+
+    async function handleSignIn() {
+        try {
+            await gitHubSignIn();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function handleSignOut() {
+        try {
+            await firebaseSignOut();
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
 
     return (
@@ -30,7 +49,13 @@ const Navbar = () => {
                     <a href="#donate" className="nav-item" onClick={(e) => handleClick(e, '#donate')}>Donate</a>
                     <a href="#charities" className="nav-item" onClick={(e) => handleClick(e, '#charities')}>Charities</a>
                     <a href="#about" className="nav-item" onClick={(e) => handleClick(e, '#about')}>About</a>
-                    <a href="#login" className="nav-item" onClick={(e) => handleClick(e, '#login')}>Login / Sign-In</a>
+
+                    {user ? (
+                        <a href="#login" className="nav-item" onClick={handleSignOut}>SignOut</a>
+                    ) : (
+                        <a href="#login" className="nav-item" onClick={handleSignIn}>Login / Sign-In</a>
+                    )}
+
                 </div>
             </nav>
         </div>
