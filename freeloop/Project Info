@@ -1,6 +1,5 @@
-The Eco-Friendly Donation Platform is an application designed to promote sustainability by simplifying the process of donating reusable items like clothing, furniture, and electronics to eco-friendly charities and organizations. It aims to reduce waste, promote recycling, and support charities working toward environmental preservation. (The service is self-managed by every user, where a donation initially can be offered by the user and be contacted by another interested in the donation by sending a message very much like craiglist.com or kijiji.ca).
- 
- 
+The Eco-Friendly Donation Platform is an application designed to promote sustainability by simplifying the process of donating reusable items like clothing, furniture, and electronics to eco-friendly charities and organizations. It aims to reduce waste, promote recycling, and support charities working toward environmental preservation. (The service is self-managed by every user, where a donation initially can be offered by the user and be contacted by another interested in the donation by sending a message very much like in craiglist.com or kijiji.ca).
+  
  
 High-Level Architecture
 Frontend (Next.js)
