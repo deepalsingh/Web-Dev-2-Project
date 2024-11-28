@@ -1,0 +1,21 @@
+
+
+GET http://localhost:3001/api/donations
+
+###
+
+
+POST http://localhost:3000/api/donations HTTP/1.1
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjkyODg2OGRjNDRlYTZhOThjODhiMzkzZDM2NDQ1MTM2NWViYjMwZDgiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiRGF2aWQgUC4gIiwicGljdHVyZSI6Imh0dHBzOi8vYXZhdGFycy5naXRodWJ1c2VyY29udGVudC5jb20vdS8xMjU3MTIxODY_dj00IiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2ZyZWVsb29wLTY4NGRmIiwiYXVkIjoiZnJlZWxvb3AtNjg0ZGYiLCJhdXRoX3RpbWUiOjE3MzI3NTY1NjIsInVzZXJfaWQiOiJIeTgzcWNKY3RvZDVXYldUTXJ1SHZTT09yWXAyIiwic3ViIjoiSHk4M3FjSmN0b2Q1V2JXVE1ydUh2U09PcllwMiIsImlhdCI6MTczMjc1NzA4MywiZXhwIjoxNzMyNzYwNjgzLCJlbWFpbCI6ImRhdmlkcGFsM2NAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImdpdGh1Yi5jb20iOlsiMTI1NzEyMTg2Il0sImVtYWlsIjpbImRhdmlkcGFsM2NAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ2l0aHViLmNvbSJ9fQ.ohtp0zt8Ozmb9w-qlk05uRjyvEa8kgdKqPKwaJw6c2AFPYW09TGWSxHCMg1vGgFSmPclnsAmOAcBxW7HwSTFf-4VIE_lLr-HnDh10Tl-DOfOePhCC4WiSaSZIKfZlLesXilQnYedTG4ZV2Q90M2OivqHAWbN_ZAYhaf2vy4tMI4mYx5ZUTsez7xRWNCkBUPRkd6iZIzAOjTBvLwFf0nFwhsbQWHLH18v-Xg2q5krWoDHAYkrPpQUKeeupQ3uLRFTLV0fglqMMiaEYg3ZrHdPlU9F9_jiNpBkjuLYPkmckqydZ5FxrYPDhLBmGKrVx5Y1GRLw5go0SZrnC_O7v_biHw
+Content-Type: application/json
+
+{
+    "title": "Old Laptop",
+    "category": "electronics",
+    "condition": "Used",
+    "description": "A used laptop in good condition",
+    "location": "New York",
+    "status": "Available",
+    "createdAt": "2024-11-27T23:59:59Z",
+    "updatedAt": "2024-11-27T23:59:59Z"
+}

@@ -2,15 +2,14 @@
 
 import { useUserAuth } from './_utils/auth-context'; 
 import { useEffect, useState } from "react";
-import Header from './components/Header';
-import { dbGetAllDonations } from './_services/donation_service';
+// import { dbGetAllDonations } from './_services/donation_service';
 
 
 // import Link from "next/link";
 
 export default function Home() {
 
-    const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();  
+    const { user, gitHubSignIn } = useUserAuth();  
     const [donations, setDonations] = useState([]);
     const [loading, setLoading] = useState(true);
     
@@ -24,21 +23,19 @@ export default function Home() {
         }
     }
 
-    useEffect(() => {
-        if(user) {
-            dbGetAllDonations(user.uid, (donationList) => {
-                setDonations(donationList);
-                setLoading(false);
-            });
-        }           
-    }, [user]); 
+    // useEffect(() => {
+    //     if(user) {
+    //         dbGetAllDonations(user.uid, (donationList) => {
+    //             setDonations(donationList);
+    //             setLoading(false);
+    //         });
+    //     }           
+    // }, [user]); 
 
     if (user) console.log(user.uid);
 
     return (
-        <main className="m-5">
-            <Header />
-
+        <main className="m-5">           
             {user ? (
                 <div>
                     <p>Welcome {user.displayName}!</p>
@@ -68,8 +65,9 @@ export default function Home() {
                 <div className="flex flex-col items-center justify-center border border-stone-500 mx-12 mt-4 h-60 rounded-xl">
                     <h1 className="text-3xl">Welcome to Freeloop</h1>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. <span className="text-2xl">{infinitySym}</span></p>
-                    <button onClick={handleSignIn} className="mt-5">Sign In to Donate or View All Listings</button>
+                    <button onClick={handleSignIn} className="mt-5">Sign In to Donate and View All Listings!</button>
                 </div>
+                
             )}
             {donations.length == 0 ? (
                 <p>No Donations Found!</p>

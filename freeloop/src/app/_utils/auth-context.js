@@ -19,6 +19,20 @@ export const AuthContextProvider = ({ children }) => {
         return signOut(auth);
     };
 
+    const getIdToken = async () => {
+        if (user) {
+            try {
+                //get user's id token - refresh if needed
+                const token = await user.getIdToken(true);
+                return token;
+            } catch (error) {
+                console.error("Error fetching ID token", error);
+                return null; 
+            }
+        }
+    }
+
+
     // Set up listener for auth state changes
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -28,7 +42,7 @@ export const AuthContextProvider = ({ children }) => {
     }, [user]);
 
     return (
-        <AuthContext.Provider value={{ user, gitHubSignIn, firebaseSignOut }}>
+        <AuthContext.Provider value={{ user, gitHubSignIn, firebaseSignOut, getIdToken }}>
             {children}
         </AuthContext.Provider>
     );
