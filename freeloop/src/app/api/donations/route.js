@@ -24,12 +24,11 @@ if (!admin.apps.length) {
 console.log("Firebase Project ID:", process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID);
 
 
-
 const donationSchema = z.object({
     userId: z.string(),
     title: z.string(),
     description: z.string(),
-    category: z.enum(["clothes", "food", "electronics"]),
+    category: z.enum(["clothes", "food", "electronics","furniture", "books", "other"]),
     condition: z.enum(["New", "Used"]),
     images: z.nullable(z.array(z.string())), // Assuming images are URLs or null
     location: z.string(),
@@ -39,11 +38,26 @@ const donationSchema = z.object({
 });
 
 // GET: all Donations
-export async function GET() {
-    const { user } = useUserAuth(); 
-    const userId = user.id;
+export async function GET(request) {
 
     try {
+
+        const authHeader = request.headers.get("authorization");
+        const token = authHeader?.split(" ")[1];
+
+        if (!token) {
+            return new Response(
+                JSON.stringify({ message: "Authorization token missing" }),
+                { status: 401, headers: { "Content-Type": "application/json" } }
+            );
+        }
+
+        // Verify token using Firebase Admin SDK
+        const decodedToken = await admin.auth().verifyIdToken(token);
+        console.log("Decoded user token:", decodedToken);
+
+        const userId = decodedToken.uid;
+
         const querySnapshot = await getDocs(query(collection(db, "users", userId, "donations")));
         let donationsList = [];
 
@@ -78,7 +92,7 @@ export async function POST(request) {
 
     // Extract the token from the Authorization header
     const authHeader = request.headers.get("authorization");
-    console.log("Extracted authorization:", authHeader);
+    // console.log("Extracted authorization:", authHeader);
 
     const token = authHeader?.split(" ")[1];
 
@@ -92,9 +106,10 @@ export async function POST(request) {
     try {
         // Verify token using Firebase Admin SDK
         const decodedToken = await admin.auth().verifyIdToken(token);
-        console.log("Decoded user token:", decodedToken);
+        // console.log("Decoded user token:", decodedToken);
 
         const userId = decodedToken.uid;
+        
         
         const newDonation = await request.json();
     
