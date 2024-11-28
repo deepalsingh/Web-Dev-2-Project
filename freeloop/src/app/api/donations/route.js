@@ -30,7 +30,7 @@ const donationSchema = z.object({
     description: z.string(),
     category: z.enum(["clothes", "food", "electronics","furniture", "books", "other"]),
     condition: z.enum(["New", "Used"]),
-    images: z.nullable(z.array(z.string())), // Assuming images are URLs or null
+    images: z.nullable(z.array(z.string())), 
     location: z.string(),
     status: z.enum(["Available", "Taken", "Pending"]),
     createdAt: z.string().nullable(),
@@ -54,7 +54,6 @@ export async function GET(request) {
 
         // Verify token using Firebase Admin SDK
         const decodedToken = await admin.auth().verifyIdToken(token);
-        console.log("Decoded user token:", decodedToken);
 
         const userId = decodedToken.uid;
 
@@ -83,16 +82,13 @@ export async function GET(request) {
 }
 
 
-
 // POST: add new Donation
 export async function POST(request) {
-
-    console.log("Authorization Header Received (server-side):", request.headers.get("authorization"));
-    
 
     // Extract the token from the Authorization header
     const authHeader = request.headers.get("authorization");
     // console.log("Extracted authorization:", authHeader);
+    // console.log("Authorization Header Received (server-side):", request.headers.get("authorization"));
 
     const token = authHeader?.split(" ")[1];
 
