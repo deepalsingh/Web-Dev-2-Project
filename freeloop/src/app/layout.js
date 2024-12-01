@@ -15,10 +15,10 @@ export default function RootLayout({ children }) {
         <title>FreeLoop: Make a Difference Looping Back</title>
       </head>
       <body        
-        className="font-geistsans antialiased m-5 bg-gradient-to-br from-emerald-100 via-emerald-200 to-indigo-100"  
+        className="font-geistsans antialiased m-5 bg-gradient-to-br from-emerald-100 via-emerald-200 to-indigo-100 "  
       >
-        <AuthContextProvider>
-          <Header />
+        <AuthContextProvider>          
+          <Header/>                
           {children} {/* All the content from pages will be injected here */}
         </AuthContextProvider>
       </body>

@@ -38,7 +38,7 @@ const Navbar = () => {
 
 
     return (
-        <div className="flex items-center fixed z-50">
+        <div className=" flex flex-row items-center">
             <nav className="flex flex-col md:flex-row items-center gap-1 py-2.5 px-1.5 border-white/10 rounded-full bg-white/10 backdrop-blur md:items-center md:justify-between">
                 <div onClick={toggleMenu} className="flex items-center text-white md:hidden px-2.5 py-0.5">
                     {/* <button>
@@ -48,10 +48,14 @@ const Navbar = () => {
 
                 {user ? (
                     <div className={`flex flex-col md:flex-row md:gap-1 ${isOpen ? 'block' : 'hidden md:block'}`}>
-                        <Link className="nav-item" href="./donate">Donate</Link>
-                        <a href="#charities" className="nav-item" onClick={(e) => handleClick(e, '#charities')}>Charities</a>
-                        <Link className="nav-item" href="./about">About</Link>
-                        <a onClick={handleSignOut} href="#login" className="nav-item bg-slate-800 bg-slate-800 text-emerald-400 active:bg-slate-300 active:text-emerald-800 hover:bg-zinc-50 hover:text-emerald-950">SignOut</a>
+
+                        <div>
+                            <Link className="nav-item" href="./donate">Donate</Link>
+                            <a href="#charities" className="nav-item" onClick={(e) => handleClick(e, '#charities')}>Charities</a>
+                            <Link className="nav-item" href="./about">About</Link>
+                            <a onClick={handleSignOut} href="#login" className="nav-item bg-slate-800 bg-slate-800 text-emerald-400 active:bg-slate-300 active:text-emerald-800 hover:bg-zinc-50 hover:text-emerald-950">SignOut</a>
+                        </div>
+
                     </div>
                 ) : (
                     <div className={`flex flex-col md:flex-row md:gap-1 ${isOpen ? 'block' : 'hidden md:block'}`}>
@@ -63,6 +67,15 @@ const Navbar = () => {
                     </div>
                 )}
             </nav>
+            {user ? (
+                <div className="flex flex-row-reverse mb-14 items-center ">
+                    <img src={user.photoURL} alt="" className="w-10 h-10 mt-14 ml-3 mr-2 rounded-full border border-slate-500" />
+                    {/* <p className="text-sm">Welcome <span className="font-bold">{user.displayName}!</span></p> */}
+                    {/* <UserHeader /> */}
+                </div>
+            ) : (
+                <div></div>
+            )}
         </div>
     )
 }
