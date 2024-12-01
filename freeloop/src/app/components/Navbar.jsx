@@ -48,9 +48,9 @@ const Navbar = () => {
 
                 {user ? (
                     <div className={`flex flex-col md:flex-row md:gap-1 ${isOpen ? 'block' : 'hidden md:block'}`}>
-                        <Link className="nav-item" href="./pages/donate">Donate</Link>
+                        <Link className="nav-item" href="./donate">Donate</Link>
                         <a href="#charities" className="nav-item" onClick={(e) => handleClick(e, '#charities')}>Charities</a>
-                        <Link className="nav-item" href="./pages/about">About</Link>
+                        <Link className="nav-item" href="./about">About</Link>
                         <a onClick={handleSignOut} href="#login" className="nav-item bg-slate-800 bg-slate-800 text-emerald-400 active:bg-slate-300 active:text-emerald-800 hover:bg-zinc-50 hover:text-emerald-950">SignOut</a>
                     </div>
                 ) : (
@@ -58,7 +58,7 @@ const Navbar = () => {
                         {/* <a href="#home" className="nav-item" onClick={(e) => handleClick(e, '#home')}>Home</a> */}
                         <a onClick={handleSignIn} href="#donate" className="nav-item">Donate</a>
                         <a href="#charities" className="nav-item" onClick={handleSignIn}>Charities</a>
-                        <Link className="nav-item" href="./pages/about">About</Link>
+                        <Link className="nav-item" href="./about">About</Link>
                         <a onClick={handleSignIn} href="#login" className="nav-item bg-slate-800 text-emerald-400 active:bg-slate-300 active:text-emerald-800 hover:bg-zinc-50 hover:text-emerald-950">Login / Sign-In</a>
                     </div>
                 )}
