@@ -4,6 +4,8 @@
 import { AuthContextProvider } from "./_utils/auth-context";
 import "../assets/globals.css";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
+
 
 
 export default function RootLayout({ children }) {
@@ -20,6 +22,7 @@ export default function RootLayout({ children }) {
         <AuthContextProvider>          
           <Header/>                
           {children} {/* All the content from pages will be injected here */}
+          <Footer/>
         </AuthContextProvider>
       </body>
     </html>

@@ -9,9 +9,8 @@ import UserHeader from './components/UserHeader';
 export default function Home() {
 
     const { user, gitHubSignIn } = useUserAuth();  
-    const [donations, setDonations] = useState([]);
+    const [allDonations, setAllDonations] = useState([]);
     const [loading, setLoading] = useState(true);
-    
     const infinitySym = '\u{221E}';
 
     async function handleSignIn() {
@@ -39,26 +38,24 @@ export default function Home() {
                 <div className="">
                     <div className="flex flex-row-reverse mb-14 items-center">                        
                         <p className="text-sm mr-20">Welcome <span className="font-bold">{user.displayName}!</span></p>
-                        <UserHeader />
+                        {/* <UserHeader /> */}
                     </div>
-                    <div>
-
-                        <div className="flex flex-col items-center justify-center border border-stone-500 mx-12 mt-4 h-60 rounded-xl">
-                            <h1 className="text-3xl">Welcome to Freeloop</h1>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. <span className="text-2xl">{infinitySym}</span></p>
-                            <button onClick={handleSignIn} className="mt-5">Sign In to Donate and View All Listings!</button>
-                        </div>
+                    
+                    <div className="flex flex-col items-center justify-center border border-slate-500 mx-12 mt-28 h-60 rounded-xl">
+                        <h1 className="text-3xl">Welcome to Freeloop</h1>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. <span className="text-2xl">{infinitySym}</span></p>
+                        <button onClick={handleSignIn} className="mt-5">Contribute Today / View All Listings!</button>
                     </div>
                 </div>
             ) : (
-                <div className="flex flex-col items-center justify-center border border-stone-500 mx-12 mt-4 h-60 rounded-xl">
+                <div className="flex flex-col items-center justify-center border border-slate-500 mx-12 mt-36 h-60 rounded-xl">
                     <h1 className="text-3xl">Welcome to Freeloop</h1>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. <span className="text-2xl">{infinitySym}</span></p>
-                    <button onClick={handleSignIn} className="mt-5">Sign In to Donate and View All Listings!</button>
+                    <button onClick={handleSignIn} className="mt-5">Sign In to Contribute / View All Listings!</button>
                 </div>
                 
             )}
-            {donations.length == 0 ? (
+            {allDonations.length == 0 ? (
 
                 <section className="mt-6">
                     <h2 className="text-sky-800">See Donations in your Area</h2>
@@ -66,10 +63,10 @@ export default function Home() {
                         <p>Loading...</p>
                     ) : (
                         <ul>
-                            {donations.map((donation) => {
+                            {allDonations.map((donation) => {
                                 return (
-                                    <li key={donation.id}>
-                                        <p>{donation.title}</p>                    
+                                    <li key={allDonations.id}>
+                                        <p>{allDonations.title}</p>                    
                                     </li>
                                 )
                             })}
@@ -80,13 +77,7 @@ export default function Home() {
                 
             ) : (
                 <ul>
-                    {donations.map((donation) => {
-                        return (
-                            <li key={donation.id}>
-                                <p>{donation.title}</p>                    
-                            </li>
-                        )
-                    })}
+                    
                 </ul>
             )}
 
