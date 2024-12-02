@@ -53,9 +53,9 @@ const Navbar = () => {
                     <div className={`flex items-center flex-grow flex-col md:flex-row md:gap-1 ${isOpen ? 'block' : 'hidden md:block'}`}>
                         <Link className="nav-item" href="/about">About</Link>
                         <a href="#charities" className="nav-item" onClick={(e) => handleClick(e, '#charities')}>Charities</a>
-                        <Link className="nav-item" href="/mydonations">My FreeLoop</Link>
+                        <Link className="nav-item bg-slate-800 text-emerald-400 active:bg-slate-300 active:text-emerald-800 hover:bg-zinc-50 hover:text-emerald-950" href="/mydonations">My FreeLoop</Link>
                         {/* <MyFreeloopMenu /> */}
-                        <a onClick={handleSignOut} href="#" className="nav-item bg-slate-800 text-emerald-400 active:bg-slate-300 active:text-emerald-800 hover:bg-zinc-50 hover:text-emerald-950">SignOut</a>
+                        <a onClick={handleSignOut} href="#" className="nav-item ">SignOut</a>
                     </div>
                 ) : (
                     <div className={`flex items-center flex-col md:flex-row md:gap-1 ${isOpen ? 'block' : 'hidden md:block'}`}>

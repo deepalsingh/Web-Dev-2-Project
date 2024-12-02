@@ -7,7 +7,7 @@ import { borderRadius } from '@mui/system';
 
 
 
-export default function UserDonationsTable({ donations }) {
+export default function UserDonationsTable({ donations, deleteDonation }) {
     return (
         <ThemeProvider theme={tableTheme}>
             <TableContainer component={Paper}>
@@ -36,7 +36,7 @@ export default function UserDonationsTable({ donations }) {
                                             </IconButton>
                                         </Tooltip>
                                         <Tooltip title="Delete">
-                                            <IconButton className="text-sky-400 hover:text-rose-400 text-xs md:text-base">
+                                            <IconButton onClick={() => deleteDonation(donObj.id)} className="text-sky-400 hover:text-rose-400 text-xs md:text-base">
                                                 <DeleteIcon />
                                             </IconButton>
                                         </Tooltip>

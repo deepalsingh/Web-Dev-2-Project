@@ -41,7 +41,6 @@ const donationSchema = z.object({
 export async function GET(request) {
 
     try {
-
         const authHeader = request.headers.get("authorization");
         const token = authHeader?.split(" ")[1];
 

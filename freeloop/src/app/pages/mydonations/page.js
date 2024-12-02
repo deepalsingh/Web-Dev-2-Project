@@ -48,7 +48,7 @@ export default function DonatePage() {
         event.preventDefault();
 
         const token = await getIdToken();    
-        console.log("User token", token);    
+        // console.log("User token", token);    
 
         if (!token) {
             console.log("No token found. Please log in");
@@ -91,11 +91,9 @@ export default function DonatePage() {
 
             if (response.ok) {
                 const data = await response.json();
-                console.log("Donation List:", data);
+                // console.log("Donation List:", data);
 
                 setDonationList(data);                
-
-                console.log(donationList);  
                 
             } else {
                 console.log("Failed: ", response);
@@ -139,6 +137,51 @@ export default function DonatePage() {
         
     }
 
+    const handleDelete = async(donId) => {
+        const token = await getIdToken();
+
+        if(!token) {
+            console.log("No token found. Please log in");
+            return;
+        }
+
+        deleteDonation(donId, token);
+        getAllDonations();
+    }
+
+
+    // handle DELETE request - Delete Donation
+    async function deleteDonation(donId, token) {
+
+        const confirmDelete = window.confirm("Are you sure you want to delete this donation?"); 
+
+        if(confirmDelete){
+            try {
+                let request = new Request(`http://localhost:3000/api/donations/${donId}`,
+                    {
+                        method: "DELETE",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}` 
+                    }}
+                );
+    
+                const response = await fetch(request);
+    
+                if (response.ok) {
+                    console.log("Donation deleted successfully", response);            
+                } 
+                // else {
+                //     console.log("Deletion Failed? ", response);
+                // }            
+            } catch (error) {
+                console.log("Error deleting donation: ", error);
+            }
+        }        
+        
+    }
+
+
     useEffect(() => {
         if(user) {
             getAllDonations();
@@ -179,7 +222,7 @@ export default function DonatePage() {
                             </div>                            
                         </Box>                        
                     </Modal>   
-                    <UserDonationsTable donations={donationList} />               
+                    <UserDonationsTable donations={donationList} deleteDonation={handleDelete} />               
                 </div>
             ) : (
                 <p>Please log in to view this page</p>
