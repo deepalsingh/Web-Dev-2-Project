@@ -3,6 +3,8 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Link from 'next/link';
+
 
 
 export default function UserDonationsTable({ donations, deleteDonation, updateDonation }) {
@@ -12,6 +14,7 @@ export default function UserDonationsTable({ donations, deleteDonation, updateDo
                 <Table>
                     <TableHead>
                         <TableRow>
+                            <TableCell>View</TableCell>
                             <TableCell>Title</TableCell>
                             <TableCell>Category</TableCell>
                             <TableCell>Condition</TableCell>
@@ -23,6 +26,11 @@ export default function UserDonationsTable({ donations, deleteDonation, updateDo
                         {donations.map((donObj) => {
                             return (
                                 <TableRow key={donObj.id}>
+                                    <TableCell>
+                                        <Link href={`/pages/userDonation/${donObj.id}`} className="text-sky-400 hover:text-orange-300">
+                                            View
+                                        </Link>
+                                    </TableCell>
                                     <TableCell>{donObj.title}</TableCell>
                                     <TableCell>{donObj.category}</TableCell>
                                     <TableCell>{donObj.condition}</TableCell>
@@ -45,7 +53,7 @@ export default function UserDonationsTable({ donations, deleteDonation, updateDo
                     </TableBody>
                 </Table>
             </TableContainer>
-        </ThemeProvider>
+        </ThemeProvider >
     )
 }
 
