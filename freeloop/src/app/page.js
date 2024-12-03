@@ -30,7 +30,7 @@ export default function Home() {
     //     }           
     // }, [user]); 
 
-    if (user) console.log(user.uid);
+    // if (user) console.log(user.uid);
 
     return (
         <main className="mx-5">           
@@ -51,7 +51,7 @@ export default function Home() {
                 <div className="flex flex-col items-center justify-center border border-slate-500 mx-12 mt-36 h-60 rounded-xl">
                     <h1 className="text-3xl">Welcome to Freeloop</h1>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. <span className="text-2xl">{infinitySym}</span></p>
-                    <button onClick={handleSignIn} className="mt-5">Sign In to Contribute / View All Listings!</button>
+                    <button className="mt-5">Sign In to Contribute / View All Listings!</button>
                 </div>
                 
             )}

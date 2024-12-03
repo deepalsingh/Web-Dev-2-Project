@@ -2,15 +2,17 @@
 
 
 import { useUserAuth } from "@/app/_utils/auth-context";
-import Donation from "@/app/components/Donation";
+import DonationForm from "@/app/components/DonationForm";
 import { useState, useEffect } from "react";
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 // import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import AddDonationForm from "@/app/components/AddDonationForm";
+import AddDonationForm from "@/app/components/DonationForm";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import CloseIcon from '@mui/icons-material/Close';
 import UserDonationsTable from "@/app/components/UserDonationsTable";
+import { getDateTimeNow } from "@/app/_utils/dateUtils";
 
 
 
@@ -19,55 +21,33 @@ import UserDonationsTable from "@/app/components/UserDonationsTable";
 export default function DonatePage() {
 
     const { user, getIdToken } = useUserAuth();
-
     const [donationList, setDonationList] = useState([]);
-    const [dTitle, setDTitle] = useState("");
-    const [dCategory, setDCategory] = useState("");
-    const [dCondition, setDCondition] = useState("");
-    const [dDescription, setDDescription] = useState("");
+    const [donObj, setDonObj] = useState({});
 
-
-    const handleDTitleChange = (event) => setDTitle(event.target.value);
-    const handleDCategoryChange = (event) => setDCategory(event.target.value);
-    const handleDConditionChange = (event) => setDCondition(event.target.value);
-    const handleDDescriptionChange = (event) => setDDescription(event.target.value);
-
+    const [task, setTask] = useState("");
     const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
+    
+    const handleAddOpen = () => {
+        setTask("Add");    
+        setOpen(true);
+    };    
+
     const handleClose = () => setOpen(false);
 
-    const clearAddFields = () => {
-        setDTitle("");
-        setDCategory("");
-        setDCondition("");
-        setDDescription("");
-    };
+    // const handleUpdateOpen = () => {
+    //     setTask("Update");    
+    //     setOpen(true)
+    // };
 
-    // handle Add Donation 
-    async function handleSubmit(event) {
-        event.preventDefault();
 
-        const token = await getIdToken();    
-        // console.log("User token", token);    
-
-        if (!token) {
-            console.log("No token found. Please log in");
-            return
+    useEffect(() => {
+        if(user) {
+            getAllDonations();
         }
-        
-        let donationObj = {
-            title: dTitle,
-            category: dCategory,
-            condition: dCondition,
-            description: dDescription
-        }
+    }, [user]);    
 
-        addDonation(donationObj, token);
-        getAllDonations();
-    }
-   
 
-    // Handle GET request - Get all Donations
+     // Handle GET request - Get all Donations
     async function getAllDonations() { 
         try {
             const token = await getIdToken();
@@ -103,48 +83,16 @@ export default function DonatePage() {
         }
     }
 
-
-    // Handle POST request - Add Donation
-    async function addDonation(donationObj, token) {
-        try {
-            
-            let request = new Request("http://localhost:3000/api/donations",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${token}`
-                    },
-                    body: JSON.stringify(donationObj)
-                }
-            );
-
-            const response = await fetch(request);
-
-            if (response.ok) {   
-                // setDonationList([...donationList, donationObj]);  
-                // setDonationList((prevList) => [...prevList, addedDonation]);
-
-                clearAddFields();
-                handleClose();
-                console.log("Donation added successfully", response);
-            } else {
-                console.log("Failed: ", response);
-            }
-        } catch (error) {
-            console.log("Error adding donation: ", error);
-        }
-        
-    }
-
     const handleDelete = async(donId) => {
         const token = await getIdToken();
+
+        console.log(donId);
 
         if(!token) {
             console.log("No token found. Please log in");
             return;
         }
-
+    
         deleteDonation(donId, token);
         getAllDonations();
     }
@@ -152,7 +100,7 @@ export default function DonatePage() {
 
     // handle DELETE request - Delete Donation
     async function deleteDonation(donId, token) {
-
+        console.log(donId);
         const confirmDelete = window.confirm("Are you sure you want to delete this donation?"); 
 
         if(confirmDelete){
@@ -171,58 +119,114 @@ export default function DonatePage() {
                 if (response.ok) {
                     console.log("Donation deleted successfully", response);            
                 } 
-                // else {
-                //     console.log("Deletion Failed? ", response);
-                // }            
+                else {
+                    console.log("Deletion Failed? ", response);
+                }            
             } catch (error) {
                 console.log("Error deleting donation: ", error);
             }
-        }        
-        
+        }                
+    }
+
+    //handle Update
+    async function handleUpdate(data) {
+        setTask("Update");    
+        setOpen(true);
+
+        setDonObj(data);
     }
 
 
-    useEffect(() => {
-        if(user) {
-            getAllDonations();
-        }
-    }, [user]);    
+    // async function handleUpdate(donObj) {
+        
+    //     const token = await getIdToken();
+        
+    //     if (!token) {
+    //         console.log("No token found. Please log in");
+    //         return
+    //     }
+    //     // console.log("Donation to update: ", donObj);
 
+    //     handleUpdateOpen(); 
+    //     setDonObj(donObj);
+        
+    //     updateDonation(donObj, token);
+    //     getAllDonations();
+    // }
+
+
+    // // PATCH request - Update Donation
+    // async function updateDonation(donObj, token) {
+    //     try {
+    //         let request = new Request(`http://localhost:3000/api/donations/${donObj.id}`,
+    //             {
+    //                 method: "PATCH",
+    //                 headers: {
+    //                     "Content-Type": "application/json",
+    //                     "Authorization": `Bearer ${token}`
+    //                 },
+    //                 body: JSON.stringify(donObj)
+    //             }
+    //         );
+
+    //         console.log("don Object to update: ", donObj);
+    //         console.log("don object id: ", donObj.id);  
+
+    //         handleUpdateOpen();
+    //         const response = await fetch(request);
+
+    //         if (response.ok) {
+    //             console.log("Donation updated successfully", response);
+    //             handleBackdropClose();
+    //         } else {
+    //             console.log("Failed: ", response);
+    //         }
+    //     } catch (error) {
+    //         console.log("Error updating donation: ", error);
+    //     }
+    // }
 
     return(
         <div className="mt-32">
             {user ? (
                 <div>
-                    <button onClick={handleOpen} className="text-emerald-950" >Add Donation</button>
+                    <div>
+                        <button onClick={handleAddOpen} className="text-emerald-950 border " >Post a Donation <AddCircleOutlineIcon /></button>    
+                    </div>                    
                     <Modal
                         open={open}
                         onClose={handleClose}
                         aria-labelledby="modal-modal-title"
                         aria-describedby="modal-modal-description"
                     >
-                        <Box sx={style.box}>
+                        <Box sx={style.modalBox}>
                             <div className="flex flex-row justify-between">
-                                <Typography id="modal-modal-title" variant="h6" component="h2">
-                                    Add New Donation
-                                </Typography>
+                                {task === "Add" ? (
+                                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                                        Add New Contribution
+                                    </Typography>
+                                ) : (
+                                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                                        Update Contribution
+                                    </Typography>
+                                )}                                
                                 <CloseIcon onClick={handleClose}/>
                             </div>                        
                             <div className="mb-5">
-                                <AddDonationForm                                 
-                                    addDonation={handleSubmit} 
-                                    handleDTitleChange={handleDTitleChange} 
-                                    handleDCategoryChange={handleDCategoryChange}
-                                    handleDConditionChange={handleDConditionChange} 
-                                    handleDDescriptionChange={handleDDescriptionChange}
-                                    dTitle={dTitle}
-                                    dCategory={dCategory}
-                                    dCondition={dCondition}
-                                    dDescription={dDescription}
-                                    />
+                                <DonationForm 
+                                    handleClose={handleClose} 
+                                    getAllDonations={getAllDonations} 
+                                    action={task} 
+                                    handleUpdate={handleUpdate}
+                                    currentDonObj={donObj}    
+                                />
                             </div>                            
                         </Box>                        
                     </Modal>   
-                    <UserDonationsTable donations={donationList} deleteDonation={handleDelete} />               
+                    <UserDonationsTable 
+                        donations={donationList} 
+                        deleteDonation={handleDelete} 
+                        updateDonation={handleUpdate}/>               
                 </div>
             ) : (
                 <p>Please log in to view this page</p>
@@ -233,12 +237,12 @@ export default function DonatePage() {
 }
 
 const style = {
-    box : {
+    modalBox : {
         position: 'absolute',
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 400,
+        width: 500,
         bgcolor: '#c5c5c5',
         border: '2px solid #000',
         boxShadow: 24,

@@ -3,11 +3,9 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { borderRadius } from '@mui/system';
 
 
-
-export default function UserDonationsTable({ donations, deleteDonation }) {
+export default function UserDonationsTable({ donations, deleteDonation, updateDonation }) {
     return (
         <ThemeProvider theme={tableTheme}>
             <TableContainer component={Paper}>
@@ -30,8 +28,8 @@ export default function UserDonationsTable({ donations, deleteDonation }) {
                                     <TableCell>{donObj.condition}</TableCell>
                                     <TableCell>{donObj.description}</TableCell>
                                     <TableCell>
-                                        <Tooltip title="Edit">
-                                            <IconButton className="text-sky-400 hover:text-orange-300">
+                                        <Tooltip title="Update">
+                                            <IconButton onClick={() => updateDonation(donObj)} className="text-sky-400 hover:text-orange-300">
                                                 <EditIcon />
                                             </IconButton>
                                         </Tooltip>
