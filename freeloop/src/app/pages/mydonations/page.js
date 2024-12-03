@@ -12,8 +12,6 @@ import AddDonationForm from "@/app/components/DonationForm";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import CloseIcon from '@mui/icons-material/Close';
 import UserDonationsTable from "@/app/components/UserDonationsTable";
-import { getDateTimeNow } from "@/app/_utils/dateUtils";
-
 
 
 
@@ -24,21 +22,23 @@ export default function DonatePage() {
     const [donationList, setDonationList] = useState([]);
     const [donObj, setDonObj] = useState({});
 
-    const [task, setTask] = useState("");
+    const [task, setTask] = useState("Add");
     const [open, setOpen] = useState(false);
     
+
     const handleAddOpen = () => {
-        setTask("Add");    
-        setOpen(true);
+        setTask("Add");            
+        setTimeout(() => setOpen(true), 50);
     };    
 
     const handleClose = () => setOpen(false);
 
-    // const handleUpdateOpen = () => {
-    //     setTask("Update");    
-    //     setOpen(true)
-    // };
-
+    //handle Update
+    const handleUpdate = (data) => {
+        setDonObj(data);
+        setTask("Update");    
+        setTimeout(() => setOpen(true), 50);
+    }
 
     useEffect(() => {
         if(user) {
@@ -128,64 +128,6 @@ export default function DonatePage() {
         }                
     }
 
-    //handle Update
-    async function handleUpdate(data) {
-        setTask("Update");    
-        setOpen(true);
-
-        setDonObj(data);
-    }
-
-
-    // async function handleUpdate(donObj) {
-        
-    //     const token = await getIdToken();
-        
-    //     if (!token) {
-    //         console.log("No token found. Please log in");
-    //         return
-    //     }
-    //     // console.log("Donation to update: ", donObj);
-
-    //     handleUpdateOpen(); 
-    //     setDonObj(donObj);
-        
-    //     updateDonation(donObj, token);
-    //     getAllDonations();
-    // }
-
-
-    // // PATCH request - Update Donation
-    // async function updateDonation(donObj, token) {
-    //     try {
-    //         let request = new Request(`http://localhost:3000/api/donations/${donObj.id}`,
-    //             {
-    //                 method: "PATCH",
-    //                 headers: {
-    //                     "Content-Type": "application/json",
-    //                     "Authorization": `Bearer ${token}`
-    //                 },
-    //                 body: JSON.stringify(donObj)
-    //             }
-    //         );
-
-    //         console.log("don Object to update: ", donObj);
-    //         console.log("don object id: ", donObj.id);  
-
-    //         handleUpdateOpen();
-    //         const response = await fetch(request);
-
-    //         if (response.ok) {
-    //             console.log("Donation updated successfully", response);
-    //             handleBackdropClose();
-    //         } else {
-    //             console.log("Failed: ", response);
-    //         }
-    //     } catch (error) {
-    //         console.log("Error updating donation: ", error);
-    //     }
-    // }
-
     return(
         <div className="mt-32">
             {user ? (
@@ -215,9 +157,9 @@ export default function DonatePage() {
                             <div className="mb-5">
                                 <DonationForm 
                                     handleClose={handleClose} 
-                                    getAllDonations={getAllDonations} 
-                                    action={task} 
                                     handleUpdate={handleUpdate}
+                                    getAllDonations={getAllDonations} 
+                                    action={task}                                     
                                     currentDonObj={donObj}    
                                 />
                             </div>                            

@@ -28,12 +28,12 @@ export const fieldOptions = {
             label: "Furniture & Household Items"
         },
         {
-            value: "Gardening & Outdoor",
-            label: "Gardening & Outdoor"
-        },
-        {
             value: "Hardware / Building Materials / Tools",
             label: "Hardware / Building Materials / Tools"
+        },
+        {
+            value: "Miscellaneous",
+            label: "Miscellaneous"
         },
         {
             value: "Non-perishable Food",
@@ -42,6 +42,10 @@ export const fieldOptions = {
         {
             value: "Personal Care & Hygiene Products",
             label: "Personal Care & Hygiene Products"
+        },
+        {
+            value: "Plants, Gardening & Outdoor",
+            label: "Plants, Gardening & Outdoor"
         },
         {
             value: "Sports Equipment",
@@ -119,5 +123,19 @@ export const fieldOptions = {
             value: "St. Albert, AB",
             label: "St. Albert, AB"
         },
+    ],
+    donationStatus: [
+        {
+            value: "Available",
+            label: "Available"
+        },
+        {
+            value: "Taken",
+            label: "Taken"
+        },
+        {
+            value: "Pending",
+            label: "Pending"
+        }
     ]
 };

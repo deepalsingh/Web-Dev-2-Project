@@ -10,9 +10,12 @@ import { getDateTimeNow } from "@/app/_utils/dateUtils";
 import { fieldOptions } from "../constants/fieldOptions";
 
 
-export default function DonationForm({ handleClose, getAllDonations, task, currentDonObj }) {
+export default function DonationForm({ handleClose, getAllDonations, action, currentDonObj }) {
 
-    const { user, getIdToken } = useUserAuth();
+    // console.log("Action to perform:", action);
+    // console.log("Received Donation Object:", currentDonObj);
+
+    const { getIdToken } = useUserAuth();
     const [backdropOpen, setBackdropOpen] = useState(false);
 
     const [dTitle, setDTitle] = useState("");
@@ -38,25 +41,22 @@ export default function DonationForm({ handleClose, getAllDonations, task, curre
     const handleDStatusChange = (event) => setDStatus(event.target.value);
 
     // const handleImageChange = async (event) => {
-    //     const files = Array.from(event.target.files); // Get selected files
+    //     const files = Array.from(event.target.files);                    // get selected files
     //     const uploadedUrls = [];
 
     //     for (const file of files) {
     //         const storageRef = ref(storage, `donations/${file.name}`);
-    //         await uploadBytes(storageRef, file); // Upload file
-    //         const downloadURL = await getDownloadURL(storageRef); // Get the URL
+    //         await uploadBytes(storageRef, file);                         // store file
+    //         const downloadURL = await getDownloadURL(storageRef);        // get the url
     //         uploadedUrls.push(downloadURL);
     //     }
 
-    //     setDImages(uploadedUrls); // Store URLs in the state
+    //     setDImages(uploadedUrls); 
     // };
 
+    const { register, handleSubmit, reset, formState: { errors } } = useForm({
 
-    // const formType = task === "Add" ? true : false;
-
-    const { register, handleSubmit, formState: { errors } } = useForm({
-
-        defaultValues: task === "Add" ? {
+        defaultValues: action === "Add" ? {
             title: "",
             category: "",
             condition: "",
@@ -66,8 +66,8 @@ export default function DonationForm({ handleClose, getAllDonations, task, curre
             images: []
         } : {
             title: currentDonObj?.title || "",
-            category: currentDonObj?.category || "",
-            condition: currentDonObj?.condition || "",
+            category: currentDonObj?.category || "Miscellaneous",
+            condition: currentDonObj?.condition || "New",
             description: currentDonObj?.description || "",
             location: currentDonObj?.location || "Calgary, AB",
             status: currentDonObj?.status || "Available",
@@ -106,6 +106,8 @@ export default function DonationForm({ handleClose, getAllDonations, task, curre
             createdAt: getDateTimeNow(),
             updatedAt: getDateTimeNow(),
         };
+
+        console.log("object to add:", donObj);
 
         await addDonation(donObj, token);
         getAllDonations();
@@ -166,8 +168,6 @@ export default function DonationForm({ handleClose, getAllDonations, task, curre
         }
 
         await updateDonation(donObj, token);
-        handleBackdropClose();
-        handleClose();
         getAllDonations();
     }
 
@@ -186,8 +186,7 @@ export default function DonationForm({ handleClose, getAllDonations, task, curre
                 }
             );
 
-            console.log("don Object to update: ", donObj);
-            console.log("don object id: ", donObj.id);
+            handleBackdropOpen();
 
             const response = await fetch(request);
 
@@ -199,6 +198,10 @@ export default function DonationForm({ handleClose, getAllDonations, task, curre
         } catch (error) {
             console.log("Error updating donation: ", error);
         }
+
+        handleBackdropClose();
+        resetAddFields();
+        handleClose();
     }
 
     const handleBackdropClose = () => setBackdropOpen(false);
@@ -206,14 +209,18 @@ export default function DonationForm({ handleClose, getAllDonations, task, curre
 
 
     return (
-        <form onSubmit={handleSubmit(task === "Add" ? handleAdd : handleUpdate)}>
+        <form onSubmit={handleSubmit(action === "Add" ? handleAdd : handleUpdate)}>
             <div className={formContainer}>
                 <label className={formLabel}>Condition</label>
-                <select className={formInput} onChange={handleDConditionChange} type="text" value={dCondition}>
+                <select
+                    {...register("condition", { required: "Please select a condition" })}
+                    className={formInput}
+                    defaultValue={action === "Add" ? null : currentDonObj?.condition || ""}>
+                    <option value="">Select Condition</option>
                     <option value="New">New</option>
                     <option value="Used">Used</option>
-                    {/* <option value="Refurbished">Refurbished</option> */}
                 </select>
+                {errors.condition && <p className={errorStyle}>{errors.condition.message}</p>}
             </div>
             <div className={formContainer}>
                 <label className={formLabel}>Title</label>
@@ -226,7 +233,11 @@ export default function DonationForm({ handleClose, getAllDonations, task, curre
             </div>
             <div className={formContainer}>
                 <label className={formLabel}>Category</label>
-                <select className={formInput} onChange={handleDCategoryChange} type="text" value={dCategory}>
+                <select
+                    {...register("category", { required: "Please select a category" })}
+                    className={formInput}
+                    defaultValue={action === "Add" ? null : currentDonObj?.category || ""}>
+                    <option value="">Select a Category</option>
                     {Array.isArray(fieldOptions.donationCategory) && fieldOptions.donationCategory.length > 0 &&
                         fieldOptions.donationCategory.map((category, index) => {
                             return (
@@ -238,12 +249,17 @@ export default function DonationForm({ handleClose, getAllDonations, task, curre
             </div>
             <div className={formContainer}>
                 <label className={formLabel}>Location</label>
-                <select className={formInput} onChange={handleDLocationChange} type="text" value={dLocation}>
-                    <option value="Airdrie, AB">Airdrie, AB</option>
-                    <option value="Calgary, AB">Calgary, AB</option>
-                    <option value="Edmonton, AB">Edmonton, AB</option>
-                    <option value="Lethbridge, AB">Lethbridge, AB</option>
-                    <option value="Red Deer, AB">Red Deer, AB</option>
+                <select
+                    className={formInput}
+                    {...register("location")}
+                    defaultValue={action === "Add" ? "" : currentDonObj?.location || ""}>
+                    {Array.isArray(fieldOptions.donationLocation) && fieldOptions.donationLocation.length > 0 &&
+                        fieldOptions.donationLocation.map((location, index) => {
+                            return (
+                                <option key={index} value={location.value}>{location.label}</option>
+                            )
+                        })
+                    }
                 </select>
             </div>
             <div className={formContainer}>
@@ -256,13 +272,15 @@ export default function DonationForm({ handleClose, getAllDonations, task, curre
                     onChange={handleDImagesChange}
                 />
             </div>
-            {task === "Update" ? (
+            {action === "Update" ? (
                 <div className={formContainer}>
                     <label className={formLabel}>Status</label>
-                    <select className={formInput} onChange={handleDStatusChange} value={dStatus} type="text">
+                    <select
+                        className={formInput}
+                        defaultValue={action === "Add" ? "Available" : currentDonObj?.status || ""}>
                         <option value="Available">Available</option>
-                        <option value="Taken">Taken</option>
                         <option value="Pending">Pending</option>
+                        <option value="Taken">Taken</option>
                     </select>
                 </div>
             ) : null}
@@ -270,14 +288,18 @@ export default function DonationForm({ handleClose, getAllDonations, task, curre
                 <label className={formLabel}>Description</label>
                 <div className="flex flex-col">
                     <textarea
-                        {...register("description", { required: "Please enter a description" })}
-                        className={formInput} onChange={handleDDescriptionChange} value={dDescription} />
+                        {...register("description", {
+                            required: "Please enter a description",
+                            maxLength: { value: 500, message: "Description cannot exceed 500 characters." }
+                        })}
+                        className={formTextArea}
+                        defaultValue={action === "Add" ? "" : currentDonObj?.description || ""} />
                     {errors.description && <p className={errorStyle}>{errors.description.message}</p>}
                 </div>
             </div>
             <div className="flex justify-center mt-6">
                 <div className="flex justify-center w-48 h-10 border border-slate-500 bg-slate-800 text-emerald-400 rounded-3xl active:text-emerald-800 hover:bg-zinc-50 hover:text-emerald-950">
-                    <button className="w-30" type="submit">{task === "Add" ? <p>Submit Donation</p> : <p>Submit Update</p>}</button>
+                    <button className="w-30" type="submit">{action === "Add" ? <p>Submit Donation</p> : <p>Submit Update</p>}</button>
                 </div>
             </div>
             <Backdrop
@@ -293,6 +315,7 @@ export default function DonationForm({ handleClose, getAllDonations, task, curre
 const formContainer = "m-2 flex flex-row justify-between items-center";
 const formLabel = "text-slate-800 ";
 const formInput = "border border-emerald-900 ml-3 h-8 p-2 rounded-md text-sm shadow-md hover:shadow-lg focus:shadow-3xl";
+const formTextArea = "w-72 h-64" + formInput;
 const errorStyle = "text-red-500 text-sm";
 
 
