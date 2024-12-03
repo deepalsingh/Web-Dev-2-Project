@@ -1,19 +1,46 @@
 import { deleteDoc, getDoc, doc, setDoc, updateDoc } from "firebase/firestore";
 import admin from "firebase-admin";
 import { db } from "../../../_utils/firebase";
-
-
 // import { z } from 'zod';
+
 
 // GET Donation by ID
 export async function GET(request, {params}) {
 
     try {
-        const { id } = await params;
-    
+        const authHeader = request.headers.get("Authorization");
 
-    } catch (error) {
+        const token = authHeader?.split(" ")[1];
+        const { id } = await params;
         
+        if (!token) {
+            return new Response(
+                JSON.stringify({ message: "Authorization token missing" }),
+                { status: 401, headers: { "Content-Type": "application/json" } }
+            );
+        }
+
+        const decodedToken = await admin.auth().verifyIdToken(token);
+        const userId = decodedToken.uid;
+
+        // const { id } = await params;
+        
+        const docRef = doc(db, "users", userId, "donations", id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            return new Response(
+                JSON.stringify(docSnap.data()),
+                { status: 200, headers: { "Content-Type": "application/json" } }
+            );  
+        } else {
+            return new Response(
+                JSON.stringify({ message: "Document not found" }),
+                { status: 404, headers: { "Content-Type": "application/json" } }
+            );
+        }
+    } catch (error) {
+        console.log("Error getting document: ", error);
     }
 }
 
@@ -64,6 +91,7 @@ export async function DELETE(request, {params}) {
 
     try {
         const authHeader = request.headers.get("authorization");
+                
         const token = authHeader?.split(" ")[1];
 
         if (!token) {
@@ -83,7 +111,6 @@ export async function DELETE(request, {params}) {
   
         await deleteDoc(docRef);
 
-        console.log(`Document with ID ${id} deleted successfully`);
         return new Response(
             JSON.stringify({ message: "Donation deleted successfully" }),
             { status: 200, headers: { "Content-Type": "application/json" } }

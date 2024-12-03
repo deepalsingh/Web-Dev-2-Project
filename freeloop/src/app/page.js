@@ -2,7 +2,8 @@
 
 import { useUserAuth } from './_utils/auth-context'; 
 import { useEffect, useState } from "react";
-import UserHeader from './components/UserHeader';
+import Link from 'next/link';
+
 
 // import Link from "next/link";
 
@@ -44,7 +45,15 @@ export default function Home() {
                     <div className="flex flex-col items-center justify-center border border-slate-500 mx-12 mt-28 h-60 rounded-xl">
                         <h1 className="text-3xl">Welcome to Freeloop</h1>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. <span className="text-2xl">{infinitySym}</span></p>
-                        <button onClick={handleSignIn} className="mt-5">Contribute Today / View All Listings!</button>
+                        <div className="flex flex-row items-center mt-5">
+                            <Link href="/pages/mydonations" className='mr-3'>
+                                <button>Contribute Today</button>
+                            </Link>
+                            <p> / </p>
+                            <Link href="#" className='ml-3'>
+                                <button>View All Listings!</button>
+                            </Link>  
+                        </div>       
                     </div>
                 </div>
             ) : (

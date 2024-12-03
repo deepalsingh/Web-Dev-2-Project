@@ -5,6 +5,7 @@ const nextConfig = {
             { source: '/about', destination: '/pages/about' },
             { source: '/mydonations', destination: '/pages/mydonations' },
             { source: '/charities', destination: '/pages/charities' },
+            { source: '/donations/:id', destination: '/api/donations/:id' },
         ];
     },
 };

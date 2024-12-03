@@ -1,18 +1,16 @@
 "use client"
 
-
 import { useUserAuth } from "@/app/_utils/auth-context";
-import DonationForm from "@/app/components/DonationForm";
 import { useState, useEffect } from "react";
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
-// import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import AddDonationForm from "@/app/components/DonationForm";
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import CloseIcon from '@mui/icons-material/Close';
+
+import DonationForm from "@/app/components/DonationForm";
 import UserDonationsTable from "@/app/components/UserDonationsTable";
 
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 // TODO: import Donation component
@@ -57,7 +55,7 @@ export default function DonatePage() {
                 return
             }
 
-            let request = new Request("http://localhost:3000/api/donations",
+            let request = new Request("/api/donations",
                 {
                     method: "GET",
                     headers: {
@@ -86,8 +84,6 @@ export default function DonatePage() {
     const handleDelete = async(donId) => {
         const token = await getIdToken();
 
-        console.log(donId);
-
         if(!token) {
             console.log("No token found. Please log in");
             return;
@@ -105,7 +101,7 @@ export default function DonatePage() {
 
         if(confirmDelete){
             try {
-                let request = new Request(`http://localhost:3000/api/donations/${donId}`,
+                let request = new Request(`/api/donations/${donId}`,
                     {
                         method: "DELETE",
                         headers: {
@@ -127,6 +123,7 @@ export default function DonatePage() {
             }
         }                
     }
+
 
     return(
         <div className="mt-32">

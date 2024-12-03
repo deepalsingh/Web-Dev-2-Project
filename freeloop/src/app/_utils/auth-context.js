@@ -32,7 +32,6 @@ export const AuthContextProvider = ({ children }) => {
         }
     }
 
-
     // Set up listener for auth state changes
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {

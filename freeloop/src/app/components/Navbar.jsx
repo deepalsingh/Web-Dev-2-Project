@@ -51,24 +51,23 @@ const Navbar = () => {
 
                 {user ? (
                     <div className={`flex items-center flex-grow flex-col md:flex-row md:gap-1 ${isOpen ? 'block' : 'hidden md:block'}`}>
-                        <Link className="nav-item" href="/about">About</Link>
+                        <Link href="/about" className="nav-item">About</Link>
                         <a href="#charities" className="nav-item" onClick={(e) => handleClick(e, '#charities')}>Charities</a>
-                        <Link className="nav-item bg-slate-800 text-emerald-400 active:bg-slate-300 active:text-emerald-800 hover:bg-zinc-50 hover:text-emerald-950" href="/mydonations">My FreeLoop</Link>
-                        {/* <MyFreeloopMenu /> */}
+                        <Link href="/mydonations" className="nav-item bg-slate-800 text-emerald-400 active:bg-slate-300 active:text-emerald-800 hover:bg-zinc-50 hover:text-emerald-950" >My FreeLoop</Link>
                         <a onClick={handleSignOut} href="#" className="nav-item ">SignOut</a>
                     </div>
                 ) : (
                     <div className={`flex items-center flex-col md:flex-row md:gap-1 ${isOpen ? 'block' : 'hidden md:block'}`}>
-                        <Link className="nav-item" href="/about">About</Link>
+                        <Link href="/about" className="nav-item">About</Link>
                         <a href="#charities" className="nav-item" onClick={handleSignIn}>Charities</a>
-                        <a onClick={handleSignIn} href="#" className="nav-item">Donate</a>
-                        <a onClick={handleSignIn} href="#login" className="nav-item bg-slate-800 text-emerald-400 active:bg-slate-300 active:text-emerald-800 hover:bg-zinc-50 hover:text-emerald-950">Login / Sign-In</a>
+                        <a href="#" onClick={handleSignIn} className="nav-item">Donate</a>
+                        <a href="#login" onClick={handleSignIn} className="nav-item bg-slate-800 text-emerald-400 active:bg-slate-300 active:text-emerald-800 hover:bg-zinc-50 hover:text-emerald-950">Login / Sign-In</a>
                     </div>
                 )}
             </nav>
             {user ? (
                 <div className="flex flex-row-reverse mb-14 items-center ">
-                    <img src={user.photoURL} alt="" className="w-[2.8rem] h-[2.8rem] mt-14 ml-3 mr-2 rounded-full border border-slate-500" />
+                    <img src={user.photoURL} alt="" className="w-[2.4rem] h-[2.4rem] mt-14 ml-3 mr-2 rounded-full border border-slate-500" />
                     {/* <p className="text-sm">Welcome <span className="font-bold">{user.displayName}!</span></p> */}
                     {/* <UserHeader /> */}
                 </div>
