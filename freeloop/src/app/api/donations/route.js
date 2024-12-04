@@ -21,9 +21,8 @@ if (!admin.apps.length) {
         projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
     });
 }
-console.log("Firebase Project ID:", process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID);
 
-
+// TODO: add fieldObject references to the schema
 const donationSchema = z.object({
     userId: z.string(),
     title: z.string(),
@@ -41,7 +40,6 @@ const donationSchema = z.object({
 export async function GET(request) {
 
     try {
-
         const authHeader = request.headers.get("authorization");
         const token = authHeader?.split(" ")[1];
 
@@ -88,7 +86,6 @@ export async function POST(request) {
     // Extract the token from the Authorization header
     const authHeader = request.headers.get("authorization");
     // console.log("Extracted authorization:", authHeader);
-    // console.log("Authorization Header Received (server-side):", request.headers.get("authorization"));
 
     const token = authHeader?.split(" ")[1];
 

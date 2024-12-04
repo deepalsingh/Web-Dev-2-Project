@@ -50,6 +50,11 @@ body {
 
 @layer base {
   .nav-item {
-    @apply px-5 py-2 rounded-full text-emerald-900 text-sm font-semibold hover:bg-slate-800 hover:text-emerald-400 transition duration-300 mx-4 my-2 md:my-0;
+    @apply px-5 py-2 rounded-full text-slate-200 text-sm font-semibold hover:bg-slate-800 hover:text-orange-300 transition duration-300 mx-4 my-2 md:my-0;
   }
+}
+
+.table-container {
+  backdrop-filter: blur(30px);
+  /* background-color: rgba(255, 255, 255, 0.08); */
 }
