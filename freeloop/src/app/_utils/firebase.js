@@ -12,6 +12,7 @@ const firebaseConfig = {
   storageBucket: "freeloop-684df.firebasestorage.app",
   messagingSenderId:"210440408281",
   appId: "1:210440408281:web:ed43b65779f41e2e5982c8",
+  
 };
  
 // Initialize Firebase
