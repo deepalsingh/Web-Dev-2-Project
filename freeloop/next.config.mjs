@@ -3,9 +3,14 @@ const nextConfig = {
     async rewrites() {
         return [
             { source: '/about', destination: '/pages/about' },
-            { source: '/mydonations', destination: '/pages/mydonations' },
+            { source: '/campaigns', destination: '/pages/campaigns' },
             { source: '/charities', destination: '/pages/charities' },
-            { source: '/donations/:id', destination: '/api/donations/:id' },
+            { source: '/myfreeloop', destination: '/pages/myfreeloop' },
+            { source: '/charities', destination: '/pages/charities' },
+            // { source: '/', destination: '/' },
+
+            // { source: '/pages/api/donations', destination: '/api/donations' },
+            
         ];
     },
 };

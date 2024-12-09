@@ -118,7 +118,7 @@ export default function DonationForm({ handleClose, getAllDonations, action, cur
     async function addDonation(donationObj, token) {
         try {
 
-            let request = new Request("http://localhost:3000/api/donations",
+            let request = new Request("/api/user-donations",
                 {
                     method: "POST",
                     headers: {
@@ -175,7 +175,7 @@ export default function DonationForm({ handleClose, getAllDonations, action, cur
     // PATCH request - Update Donation
     async function updateDonation(donObj, token) {
         try {
-            let request = new Request(`http://localhost:3000/api/donations/${donObj.id}`,
+            let request = new Request(`/api/user-donations/${donObj.id}`,
                 {
                     method: "PATCH",
                     headers: {
