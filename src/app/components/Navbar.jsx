@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useRouter } from 'next/navigation';
+import { debounce } from 'lodash';
 
 
 
@@ -19,6 +20,7 @@ const Navbar = () => {
     const open = Boolean(anchorEl);
     const router = useRouter();
 
+    const debouncedHandleSignIn = debounce(handleSignIn, 300);
 
     const toggleMenu = () => {
         setIsOpen(prev => !prev);
@@ -82,10 +84,10 @@ const Navbar = () => {
                 ) : (
                     <div className={`flex items-center flex-col md:flex-row md:gap-1 ${isOpen ? 'block' : 'hidden md:block'}`}>
                         <Link href="/about" className="nav-item">About</Link>
-                        <a href="#campaigns" className="nav-item" onClick={handleSignIn}>Campaigns</a>
-                        <a href="#charities" className="nav-item" onClick={handleSignIn}>Charities</a>
-                        <a href="#" onClick={handleSignIn} className="nav-item">Donate</a>
-                        <a href="#login" onClick={handleSignIn} className="nav-item bg-slate-800 text-emerald-400 active:bg-slate-300 active:text-emerald-800 hover:bg-zinc-50 hover:text-emerald-950">Login / Sign-In</a>
+                        <a href="#campaigns" className="nav-item" onClick={debouncedHandleSignIn}>Campaigns</a>
+                        <a href="#charities" className="nav-item" onClick={debouncedHandleSignIn}>Charities</a>
+                        <a href="#" onClick={debouncedHandleSignIn} className="nav-item">Donate</a>
+                        <a href="#login" onClick={debouncedHandleSignIn} className="px-5 py-2 rounded-full text-sm font-semibold transition duration-300 mx-4 my-2 md:my-0 bg-slate-800 text-emerald-400 active:bg-slate-300 active:text-emerald-800 hover:bg-zinc-50 hover:text-emerald-950">Login / Sign-In</a>
                     </div>
                 )}
             </nav>
