@@ -1,15 +1,13 @@
-
 export default function AboutPage() {
-    return(
-        <div className="flex flex-row justify-center mt-24 p-10">
-            <div className="flex flex-col w-72 justify-center items-center align-middle">
-                <h1>About FreeLoop Page</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut nesciunt ex pariatur amet, 
-                    ipsum error corrupti nobis dignissimos distinctio quo asperiores! Sapiente cupiditate 
-                    laborum, quae nihil dicta quam voluptas ad corrupti possimus qui commodi aut facilis 
-                    quos molestias velit! Quisquam amet dolorem minus accusantium ipsam vero dignissimos 
-                    ipsum nam totam recusandae commodi, modi facilis incidunt voluptatum obcaecati 
-                    temporibus illo ad, adipisci deleniti voluptatem dolores!</p>
+    return (
+        <div className=" flex justify-center items-center min-h-screen ">
+            <div className="  bg-white p-8 max-w-lg w-full space-y-6 rounded-xl shadow-lg">
+                <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-yellow-500 to-sky-500 text-center">
+                    About FreeLoop Page
+                </h1>
+                <p className=" text-sky-700 text-lg leading-relaxed font-medium">
+                FreeLoop is a platform designed for people who want to give back to their community and make a positive impact. Whether it's supporting a cause or helping those in need, FreeLoop makes charitable giving simple and meaningful. Join us in creating a world where generosity and kindness drive change, one donation at a time.
+                </p>
             </div>
         </div>
     );
