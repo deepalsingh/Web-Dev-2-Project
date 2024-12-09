@@ -55,7 +55,7 @@ export default function DonatePage() {
                 return
             }
 
-            let request = new Request("/api/donations",
+            let request = new Request("/api/user-donations",
                 {
                     method: "GET",
                     headers: {
@@ -101,7 +101,7 @@ export default function DonatePage() {
 
         if(confirmDelete){
             try {
-                let request = new Request(`/api/donations/${donId}`,
+                let request = new Request(`/api/user-donations/${donId}`,
                     {
                         method: "DELETE",
                         headers: {
@@ -126,7 +126,7 @@ export default function DonatePage() {
 
 
     return(
-        <div className="mt-32">
+        <div className="mt-32 p-8">
             {user ? (
                 <div>
                     <div>

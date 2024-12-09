@@ -3,6 +3,7 @@
 import { useUserAuth } from './_utils/auth-context'; 
 import { useEffect, useState } from "react";
 import Link from 'next/link';
+import DonationsList from './components/DonationsGlobal';
 
 
 // import Link from "next/link";
@@ -42,54 +43,33 @@ export default function Home() {
                         {/* <UserHeader /> */}
                     </div>
                     
-                    <div className="flex flex-col items-center justify-center border border-slate-500 mx-12 mt-28 h-60 rounded-xl">
+                    <div className="flex flex-col items-center justify-center border border-slate-500 bg-emerald-400 mx-12 mt-28 h-44 rounded-xl">
                         <h1 className="text-3xl">Welcome to Freeloop</h1>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. <span className="text-2xl">{infinitySym}</span></p>
-                        <div className="flex flex-row items-center mt-5">
-                            <Link href="/pages/mydonations" className='mr-3'>
-                                <button>Contribute Today</button>
-                            </Link>
-                            <p> / </p>
-                            <Link href="#" className='ml-3'>
-                                <button>View All Listings!</button>
-                            </Link>  
+
+                        <div className='flex flex-row items-center space-x-4 mt-3'>
+                            <Link 
+                                href="/pages/myfreeloop" 
+                                className="bg-slate-700 text-white p-4 rounded-3xl transition duration-300 ease-out hover:scale-105 hover:text-emerald-400 active:text-orange-400"
+                                >
+                                    Contribute Today
+                                </Link>                         
+                            <button className="bg-slate-700 text-white p-4 rounded-3xl transition duration-300 ease-out hover:scale-105 hover:text-orange-400 active:text-emerald-400">View All Listings!</button>
                         </div>       
                     </div>
+                    <DonationsList />
                 </div>
             ) : (
-                <div className="flex flex-col items-center justify-center border border-slate-500 mx-12 mt-36 h-60 rounded-xl">
+                <div className="flex flex-col items-center justify-center border border-slate-500 bg-emerald-400 mx-12 mt-28 h-44 rounded-xl">
                     <h1 className="text-3xl">Welcome to Freeloop</h1>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. <span className="text-2xl">{infinitySym}</span></p>
-                    <button className="mt-5">Sign In to Contribute / View All Listings!</button>
+                    <div className='flex flex-row items-center space-x-4 mt-3'>
+                        <button className="bg-slate-700 text-white p-4 rounded-3xl transition duration-300 ease-out hover:scale-105 hover:text-emerald-400 active:text-orange-400" onClick={handleSignIn}>Sign In to Contribute</button>                         
+                        <button className="bg-slate-700 text-white p-4 rounded-3xl transition duration-300 ease-out hover:scale-105 hover:text-orange-400 active:text-emerald-400" onClick={handleSignIn}>View All Listings!</button>
+                    </div>                    
                 </div>
                 
-            )}
-            {allDonations.length == 0 ? (
-
-                <section className="mt-6">
-                    <h2 className="text-sky-800">See Donations in your Area</h2>
-                    {/* {loading ? (
-                        <p>Loading...</p>
-                    ) : (
-                        <ul>
-                            {allDonations.map((donation) => {
-                                return (
-                                    <li key={allDonations.id}>
-                                        <p>{allDonations.title}</p>                    
-                                    </li>
-                                )
-                            })}
-                        </ul>
-                    )} */}
-                        <p>No Donations Found!</p>
-                    </section>
-                
-            ) : (
-                <ul>
-                    
-                </ul>
-            )}
-
+            )}            
         </main>
     );
   }

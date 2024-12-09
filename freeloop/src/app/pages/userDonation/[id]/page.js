@@ -34,7 +34,7 @@ export default function ContributionPage() {
                 return;
             }
             
-            let request = new Request(`/api/donations/${id}`,
+            let request = new Request(`/api/user-donations/${id}`,
                 {
                     method: "GET",
                     headers: {

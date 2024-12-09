@@ -8,6 +8,8 @@ import Link from 'next/link';
 
 
 export default function UserDonationsTable({ donations, deleteDonation, updateDonation }) {
+
+    console.log(donations);
     return (
         <ThemeProvider theme={tableTheme}>
             <TableContainer component={Paper}>
