@@ -39,7 +39,7 @@ export default function DonationsList() {
     }
 
     return (
-        <div className="grid grid-cols-3 space-x-4 mt-14">
+        <div className="grid grid-cols-3 space-x-4 space-y-2 mt-14 items-center">
             {donationList.length === 0 ? (
                 <div>No Donations Available</div>
             ) : (
